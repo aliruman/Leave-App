@@ -1,0 +1,67 @@
+App As appinfo:
+    BackEnabled: =false
+    OnStart: |-
+        =ClearCollect(
+            NavManagerView,
+             {
+                Title: "Leaves For Waiting Action",
+                TargetScreen: 'Leaves For Waiting Action',
+                Icon:Icon.Clock,
+                ID:1
+            },
+            {
+                Title: "Company Hoildays",
+                TargetScreen: 'Company Hoildays',
+                Icon:Icon.CalendarBlank,
+                ID:2
+            },
+            {
+                Title: "About",
+                TargetScreen: About,
+                Icon:Icon.Newspaper,
+                ID:3
+            },
+            {
+                Title: "LogOut",
+                TargetScreen: Home,
+                Icon:Icon.Home,
+                ID:4
+            }
+        );
+        
+        ClearCollect(
+            NavEmployeeView,
+            {
+                Title: "My Leave Request",
+                TargetScreen: 'My Leave Request',
+                Icon:Icon.Person,
+                ID:1
+            },
+            {
+                Title: "My Leave Balance",
+                TargetScreen: 'My Leave Balance',
+                Icon:Icon.ListScrollWatchlist,
+                ID:2
+            },
+            {
+                Title: "Company Hoildays",
+                TargetScreen: 'Company Hoildays',
+                Icon:Icon.CalendarBlank,
+                ID:3
+            },
+            {
+                Title: "About",
+                TargetScreen: About,
+                Icon:Icon.Newspaper,
+                ID:4
+            },
+            {
+                Title: "LogOut",
+                TargetScreen: Home,
+                Icon:Icon.Home,
+                ID:5
+            }
+        );
+        Set(CurrentUser,Office365Users.MyProfile());
+        Set(VarNavGalWidth,70)
+

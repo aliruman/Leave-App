@@ -1,0 +1,262 @@
+"'My Leave Balance' As screen":
+    Fill: =RGBA(215, 226, 241, 1)
+
+    Header_2 As Header:
+        NewRequest: ='New Request'
+        ZIndex: =2
+
+    "Gallery3 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        BorderColor: =RGBA(204, 204, 204, 1)
+        Height: =672
+        Items: ='Leave Balance'
+        Layout: =Layout.Vertical
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =340
+        Width: =App.Width-NavGallery_4.Width
+        WrapCount: =4
+        X: =NavGallery_4.X+NavGallery_4.Width
+        Y: =96
+        ZIndex: =3
+
+        Rectangle1 As rectangle:
+            BorderColor: =RGBA(204, 204, 204, 1)
+            BorderThickness: =1
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =317
+            Width: =248
+            X: =16
+            Y: =6
+            ZIndex: =1
+
+        Image3 As image:
+            Height: =38
+            Image: =First(ThisItem.Attachments).AbsoluteUri
+            OnSelect: =Select(Parent)
+            Width: =50
+            X: =107
+            Y: =37
+            ZIndex: =2
+
+        Title2 As label:
+            Align: =Align.Center
+            Height: =34
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.'Leave Type'.Value
+            VerticalAlign: =VerticalAlign.Top
+            Width: =273
+            Y: =115
+            ZIndex: =3
+
+        Subtitle2 As label:
+            Align: =Align.Center
+            Color: =RGBA(0, 134, 208, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =32
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =14
+            Text: ="+Request Leave"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =163
+            X: =52
+            Y: =277
+            ZIndex: =4
+
+        Label14 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =38
+            OnSelect: =Select(Parent)
+            Text: ="Available"
+            Width: =101
+            X: =87
+            Y: =212
+            ZIndex: =5
+
+        Label15 As label:
+            Align: =Align.Center
+            Font: =Font.'Lato Light'
+            Height: =52
+            OnSelect: =Select(Parent)
+            Size: =27
+            Text: |
+                =//Text(Round(Value(ThisItem.BalanceLeave),0))& "Days"
+                ThisItem.'Total Leave'-Sum(Filter(LeavesAppliedByUsers,RequestedBy.Email=User().Email && LeaveType=ThisItem.'Leave Type'.Value && LeaveStatus.Value="Approved"),TotalDays)&" Days"
+            Width: =167
+            X: =53
+            Y: =151
+            ZIndex: =6
+
+        Icon4 As icon.Add:
+            BorderColor: =RGBA(0, 134, 208, 1)
+            Color: =RGBA(0, 134, 208, 1)
+            Height: =32
+            Icon: =Icon.Information
+            OnSelect: =Navigate(About)
+            Width: =34
+            X: =224
+            Y: =12
+            ZIndex: =7
+
+    "NavGallery_4 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =672
+        Items: =If(ManagerView,NavManagerView,NavEmployeeView)
+        Layout: =Layout.Vertical
+        OnSelect: |-
+            =
+            If(ThisItem.Title="LogOut",Set(logout,true),Navigate(ThisItem.TargetScreen));Set(varid,ThisItem.ID)
+        TemplateFill: =If(varid=ThisItem.ID,SteelBlue,Transparent)
+        TemplatePadding: =0
+        TemplateSize: =68
+        Width: =VarNavGalWidth
+        Y: =96
+        ZIndex: =4
+
+        Separator1_9 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        Label32_9 As label:
+            Color: =If(varid=ThisItem.ID,White,Black)
+            FontWeight: =FontWeight.Bold
+            Height: =50
+            OnSelect: =If(ThisItem.Title="LogOut",Set(logout,true),Navigate(ThisItem.TargetScreen));Set(varid,ThisItem.ID)
+            Size: =10
+            Text: =ThisItem.Title
+            Width: =190
+            X: =77
+            Y: =8
+            ZIndex: =6
+
+        Rectangle13_9 As rectangle:
+            Fill: =If(varid=ThisItem.ID,White,Black)
+            Height: =50
+            OnSelect: =Select(Parent)
+            Visible: =If(varid=ThisItem.ID,true,false)
+            Width: =5
+            Y: =8
+            ZIndex: =7
+
+        Icon6_4 As icon.Add:
+            Color: =If(varid=ThisItem.ID,White,Black)
+            Height: =40
+            Icon: =ThisItem.Icon
+            OnSelect: =If(ThisItem.Title="LogOut",Set(logout,true),Navigate(ThisItem.TargetScreen));Set(varid,ThisItem.ID)
+            Width: =40
+            X: =18
+            Y: =12
+            ZIndex: =8
+
+    Image5_1 As image:
+        Height: =96
+        Image: ='Alankaeon Logo_1'
+        OnSelect: |-
+            =Set(Menuwidth,!Menuwidth);
+            If(Menuwidth,Set(VarNavGalWidth,70),Set(VarNavGalWidth,270));
+        Width: =253
+        X: =20
+        ZIndex: =5
+
+    Circle2_1 As circle:
+        Fill: =RGBA(0, 0, 0, 0)
+        Height: =53
+        OnSelect: =Navigate('New Request');Set(EditLeave,false)
+        Width: =52
+        X: =841
+        Y: =21
+        ZIndex: =12
+
+    LogOutPopup_1 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =12
+
+        Rectangle14_1 As rectangle:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(1, 1, 1, 0.8)
+            Height: =719
+            OnSelect: =varLogoutpopup
+            Visible: =logout
+            Width: =1266
+            X: =52
+            Y: =29
+            ZIndex: =6
+
+        Rectangle15_1 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =310
+            OnSelect: =varLogoutpopup
+            Visible: =logout
+            Width: =734
+            X: =332
+            Y: =232
+            ZIndex: =7
+
+        Label37_1 As label:
+            FontWeight: =FontWeight.Bold
+            Height: =76
+            OnSelect: =varLogoutpopup
+            Size: =20
+            Text: ="Close this app ?"
+            Visible: =logout
+            Width: =344
+            X: =378
+            Y: =260
+            ZIndex: =8
+
+        Label38_1 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =52
+            OnSelect: =varLogoutpopup
+            Size: =15
+            Text: ="Are you sure you want to LogOut ."
+            Visible: =logout
+            Width: =344
+            X: =378
+            Y: =336
+            ZIndex: =9
+
+        Button16_3 As button:
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(153, 153, 153, 1)
+            OnSelect: =Set(logout,false);Navigate(Home)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: ="Close"
+            Visible: =logout
+            X: =657
+            Y: =460
+            ZIndex: =10
+
+        Button16_2 As button:
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(153, 153, 153, 1)
+            OnSelect: =Set(logout,false)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: ="Cancle"
+            Visible: =logout
+            X: =854
+            Y: =460
+            ZIndex: =11
+

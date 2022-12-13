@@ -1,0 +1,33 @@
+Navigation As CanvasComponent:
+    CurrentScreen: ="Text"
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: |
+        =Max(App.Height, App.MinScreenHeight)-Max(App.Height, App.MinScreenHeight)/8
+    Navitem: |-
+        =Table({Title: "My Leave Screen", TargetScreen: App.ActiveScreen}, {Title: "My Leave Balance", TargetScreen: App.ActiveScreen},{Title: "Company Hoildays", TargetScreen: App.ActiveScreen},{Title: "About", TargetScreen: App.ActiveScreen},{Title: "LogOut", TargetScreen: App.ActiveScreen})
+    Width: =Max(App.Width, App.MinScreenWidth)/5
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    Gallery1 As gallery.galleryVertical:
+        Fill: =RGBA(230, 230, 230, 1)
+        Height: =Navigation.Height
+        Items: =Navigation.Navitem
+        Layout: =Layout.Vertical
+        OnSelect: =true;Navigate(ThisItem.TargetScreen,ScreenTransition.Fade)
+        TemplateFill: =If(ThisItem.Title=Navigation.CurrentScreen,White,RGBA(240, 240, 240, 1))
+        TemplateSize: =57
+        Width: =273.2
+        ZIndex: =1
+
+        Label8 As label:
+            Color: =If(ThisItem.Title=Navigation.CurrentScreen, RGBA( 47,43,41,1),RGBA(10,100,204,1))
+            Height: =32
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Title
+            Width: =222
+            X: =24
+            Y: =12
+            ZIndex: =1
+

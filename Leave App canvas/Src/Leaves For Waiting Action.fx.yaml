@@ -1,0 +1,405 @@
+"'Leaves For Waiting Action' As screen":
+    Fill: =RGBA(215, 226, 241, 1)
+
+    Header_7 As Header:
+        NewRequest: ='New Request'
+
+    Gallery8_1 As gallery.galleryVertical:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        BorderThickness: =1
+        Height: =103
+        Items: |-
+            =Table({Filter:"All"},{Filter:"Pending"},{Filter:"Approved"},{Filter:"Declined"})
+        Layout: =Layout.Vertical
+        TemplateSize: =77
+        Width: =App.Width-NavGallery.Width-Gallery10_1.Width
+        WrapCount: =4
+        X: =NavGallery.X+NavGallery.Width
+        Y: =100
+        ZIndex: =3
+
+        Button3_1 As button:
+            Color: |-
+                =//RGBA(255, 255, 255, 1)
+                If(ThisItem.Filter="All",Cyan,ThisItem.Filter="Approved",Green,ThisItem.Filter="Pending",Gray,ThisItem.Filter="Declined",Maroon)
+            Fill: |-
+                =//RGBA(56, 96, 178, 1)
+                White
+            Height: =38
+            HoverColor: |-
+                =//RGBA(255, 255, 255, 1)
+                If(ThisItem.Filter="All",Cyan,ThisItem.Filter="Approved",Green,ThisItem.Filter="Pending",Gray,ThisItem.Filter="Declined",Maroon)
+            HoverFill: =//ColorFade(RGBA(56, 96, 178, 1), -20%)
+            OnSelect: |-
+                =Clear(LeaveDetailColl);
+                /*If(ThisItem.Filter="All",ClearCollect(MyLeavesColl,LeavesAppliedByUsers),
+                ClearCollect(MyLeavesColl,Filter(LeavesAppliedByUsers,LeaveStatus.Value=ThisItem.Filter)));
+                
+                If(CountRows(MyLeavesColl)=0,UpdateContext({NoDate:"No Record Found"}),UpdateContext({NoDate:""}));*/
+            Text: =ThisItem.Filter&" - "&If(ThisItem.Filter="All",CountRows(LeavesAppliedByUsers),CountRows(Filter(LeavesAppliedByUsers,LeaveStatus.Value=ThisItem.Filter)))
+            Width: =Gallery8_1.TemplateWidth-20
+            X: =8
+            Y: =19
+            ZIndex: =1
+
+    "Gallery9_1 As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
+        BorderColor: =RGBA(230, 230, 230, 1)
+        BorderThickness: =1
+        Height: =550
+        Items: |-
+            =//MyLeavesColl
+            If(Gallery8_1.Selected.Filter="All",LeavesAppliedByUsers,Filter(LeavesAppliedByUsers,LeaveStatus.Value=Gallery8_1.Selected.Filter))
+        Layout: =Layout.Vertical
+        OnSelect: =ClearCollect(LeaveDetailColl,Filter(LeavesAppliedByUsers,ID=ThisItem.ID))
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =130
+        Width: =App.Width-NavGallery.Width-Gallery10_1.Width
+        X: =NavGallery.X+NavGallery.Width
+        Y: =203
+        ZIndex: =4
+
+        Title5_1 As label:
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.Title &"   -   "&ThisItem.RequestedBy.DisplayName
+            VerticalAlign: =VerticalAlign.Top
+            Width: =Parent.TemplateWidth - 104
+            X: =24
+            Y: =16
+            ZIndex: =1
+
+        Subtitle4_1 As label:
+            Height: =36
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =15
+            Text: =Text(DateTimeValue(Text(ThisItem.FromDate)),LongDate)&" - "& Text(DateTimeValue(Text(ThisItem.ToDate)),LongDate)
+            VerticalAlign: =VerticalAlign.Top
+            Width: =690
+            X: =24
+            Y: =Title5_1.Y + Title5_1.Height + 2
+            ZIndex: =2
+
+        Body1_1 As label:
+            Height: =44
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.LeaveDescription
+            VerticalAlign: =VerticalAlign.Top
+            Width: =Parent.TemplateWidth - 104
+            X: =24
+            Y: =86
+            ZIndex: =3
+
+        Separator4_1 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        Button4_1 As button:
+            Color: |
+                =RGBA(255, 255, 255, 1)
+            Fill: |-
+                =//RGBA(56, 96, 178, 1)
+                If(ThisItem.LeaveStatus.Value="Approved",Green,ThisItem.LeaveStatus.Value="Pending",Gray,ThisItem.LeaveStatus.Value="Declined",Maroon)
+            Height: =35
+            OnSelect: =ClearCollect(LeaveDetailColl,Filter(LeavesAppliedByUsers,ID=ThisItem.ID))
+            Text: =ThisItem.LeaveStatus.Value
+            Width: =140
+            X: =Gallery9_1.TemplateWidth-Button4_1.Width-15
+            Y: =54
+            ZIndex: =6
+
+    "Gallery10_1 As gallery.'BrowseLayout_Vertical_OneTextVariant_ver4.0'":
+        BorderColor: =RGBA(230, 230, 230, 1)
+        BorderThickness: =1
+        Height: =539
+        Items: =LeaveDetailColl
+        Layout: =Layout.Vertical
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =383
+        Width: =277
+        X: =1089
+        Y: =205
+        ZIndex: =5
+
+        Title6_1 As label:
+            FontWeight: =FontWeight.Normal
+            Height: =27
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: |-
+                ="Total Days : " &ThisItem.TotalDays & " Days"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =169
+            X: =20
+            Y: =66
+            ZIndex: =1
+
+        Label27_1 As label:
+            Height: =37
+            OnSelect: =Select(Parent)
+            Size: =12
+            Text: |-
+                ="Leave Type : " & ThisItem.LeaveType
+            Width: =246
+            X: =18
+            Y: =93
+            ZIndex: =2
+
+        Label29_1 As label:
+            Height: =38
+            OnSelect: =Select(Parent)
+            Size: =12
+            Text: |-
+                ="Request Sent To : " & ThisItem.RequestedTo.DisplayName
+            Width: =263
+            X: =14
+            Y: =130
+            ZIndex: =3
+
+        Label30_1 As label:
+            FontWeight: =FontWeight.Bold
+            OnSelect: =Select(Parent)
+            Size: =18
+            Text: ="Leave Detail"
+            Width: =170
+            X: =61
+            Y: =16
+            ZIndex: =4
+
+        Button10 As button:
+            DisplayMode: |-
+                =If(ThisItem.LeaveStatus.Value="Pending",DisplayMode.Edit
+                ,
+                (ThisItem.LeaveStatus.Value="Approved" && !IsBlank(TextInput5.Text))||(ThisItem.LeaveStatus.Value="Declined" && !IsBlank(TextInput5.Text)),DisplayMode.Edit,DisplayMode.Disabled)
+            Fill: =RGBA(141, 198, 63, 1)
+            Height: =29
+            OnSelect: |-
+                =//Set(myItem,LookUp(LeavesAppliedByUsers,ID=Gallery9_1.Selected.ID));
+                Patch(LeavesAppliedByUsers,LookUp(LeavesAppliedByUsers,ID=ThisItem.ID),{LeaveStatus:{Value:"Approved"}});
+                Refresh(LeavesAppliedByUsers)
+            Size: =13
+            Text: ="Approve"
+            Visible: |-
+                =true
+                //If(ThisItem.LeaveStatus.Value="Approved"||ThisItem.LeaveStatus.Value="Declined",false,true)
+            Width: =95
+            X: =25
+            Y: =207
+            ZIndex: =5
+
+        Button10_1 As button:
+            DisplayMode: |-
+                =If(ThisItem.LeaveStatus.Value="Pending",DisplayMode.Edit
+                ,
+                (ThisItem.LeaveStatus.Value="Approved" && !IsBlank(TextInput5.Text))||(ThisItem.LeaveStatus.Value="Declined" && !IsBlank(TextInput5.Text)),DisplayMode.Edit,DisplayMode.Disabled)
+            Fill: =RGBA(168, 0, 0, 1)
+            Height: =29
+            OnSelect: |-
+                =//Select(Parent)
+                Patch(LeavesAppliedByUsers,LookUp(LeavesAppliedByUsers,ID=ThisItem.ID),{LeaveStatus:{Value:"Declined"}});
+                Refresh(LeavesAppliedByUsers)
+            Size: =13
+            Text: ="Reject"
+            Visible: |-
+                =true
+                //If(ThisItem.LeaveStatus.Value="Approved"||ThisItem.LeaveStatus.Value="Declined",false,true)
+            Width: =95
+            X: =139
+            Y: =207
+            ZIndex: =6
+
+        TextInput5 As text:
+            Align: =Align.Center
+            Default: =""
+            Height: =122
+            HintText: ="Please state your reason "
+            OnSelect: =Select(Parent)
+            Visible: =If(ThisItem.LeaveStatus.Value="Approved"||ThisItem.LeaveStatus.Value="Declined",true,false)
+            Width: =246
+            X: =18
+            Y: =255
+            ZIndex: =7
+
+        Label29_2 As label:
+            Height: =38
+            OnSelect: =Select(Parent)
+            Size: =12
+            Text: |-
+                ="Requested by : " & ThisItem.RequestedBy.DisplayName
+            Width: =263
+            X: =14
+            Y: =169
+            ZIndex: =8
+
+    "NavGallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =672
+        Items: =If(ManagerView,NavManagerView,NavEmployeeView)
+        Layout: =Layout.Vertical
+        OnSelect: =If(ThisItem.Title="LogOut",Set(logout,true),Navigate(ThisItem.TargetScreen));Set(varid,ThisItem.ID)
+        TemplateFill: =If(varid=ThisItem.ID,SteelBlue,Transparent)
+        TemplatePadding: =0
+        TemplateSize: =68
+        Width: =VarNavGalWidth
+        Y: =96
+        ZIndex: =6
+
+        Separator1_5 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        Label32_5 As label:
+            Color: =If(varid=ThisItem.ID,White,Black)
+            FontWeight: =FontWeight.Bold
+            Height: =50
+            OnSelect: =If(ThisItem.Title="LogOut",Set(logout,true),Navigate(ThisItem.TargetScreen));Set(varid,ThisItem.ID)
+            Size: =10
+            Text: =ThisItem.Title
+            Width: =190
+            X: =77
+            Y: =8
+            ZIndex: =6
+
+        Rectangle13_5 As rectangle:
+            Fill: =If(varid=ThisItem.ID,White,Black)
+            Height: =50
+            OnSelect: =Select(Parent)
+            Visible: =If(varid=ThisItem.ID,true,false)
+            Width: =5
+            Y: =8
+            ZIndex: =7
+
+        Icon6 As icon.Add:
+            Color: =If(varid=ThisItem.ID,White,Black)
+            Height: =40
+            Icon: =ThisItem.Icon
+            OnSelect: =If(ThisItem.Title="LogOut",Set(logout,true),Navigate(ThisItem.TargetScreen));Set(varid,ThisItem.ID)
+            Width: =40
+            X: =18
+            Y: =12
+            ZIndex: =8
+
+    Image5_5 As image:
+        Height: =96
+        Image: ='Alankaeon Logo_1'
+        OnSelect: |-
+            =Set(Menuwidth,!Menuwidth);
+            If(Menuwidth,Set(VarNavGalWidth,70),Set(VarNavGalWidth,270));
+        Width: =253
+        X: =20
+        ZIndex: =7
+
+    Circle2_4 As circle:
+        Fill: =RGBA(0, 0, 0, 0)
+        Height: =53
+        OnSelect: =Navigate('New Request');Set(EditLeave,false)
+        Width: =52
+        X: =841
+        Y: =21
+        ZIndex: =14
+
+    LogOutPopup_5 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =14
+
+        Rectangle14_5 As rectangle:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(1, 1, 1, 0.8)
+            Height: =719
+            OnSelect: =varLogoutpopup
+            Visible: =logout
+            Width: =1266
+            X: =52
+            Y: =29
+            ZIndex: =8
+
+        Rectangle15_5 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =310
+            OnSelect: =varLogoutpopup
+            Visible: =logout
+            Width: =734
+            X: =332
+            Y: =232
+            ZIndex: =9
+
+        Label37_5 As label:
+            FontWeight: =FontWeight.Bold
+            Height: =76
+            OnSelect: =varLogoutpopup
+            Size: =20
+            Text: ="Close this app ?"
+            Visible: =logout
+            Width: =344
+            X: =378
+            Y: =260
+            ZIndex: =10
+
+        Label38_5 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =52
+            OnSelect: =varLogoutpopup
+            Size: =15
+            Text: ="Are you sure you want to LogOut ."
+            Visible: =logout
+            Width: =344
+            X: =378
+            Y: =336
+            ZIndex: =11
+
+        Button16_11 As button:
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(153, 153, 153, 1)
+            OnSelect: =Set(logout,false);Navigate(Home)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: ="Close"
+            Visible: =logout
+            X: =657
+            Y: =460
+            ZIndex: =12
+
+        Button16_10 As button:
+            BorderThickness: =0
+            Color: =RGBA(0, 0, 0, 1)
+            Fill: =RGBA(153, 153, 153, 1)
+            OnSelect: =Set(logout,false)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Text: ="Cancle"
+            Visible: =logout
+            X: =854
+            Y: =460
+            ZIndex: =13
+

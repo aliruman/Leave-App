@@ -1,0 +1,110 @@
+{
+  "407bc65f-2dcd-4566-ad30-91fa2dfa04b9": {
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Outlook",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1599/1.0.1599.3017/office365/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Outlook"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "407bc65f-2dcd-4566-ad30-91fa2dfa04b9"
+  },
+  "61d5704b-8e34-48a0-82d6-35d94a267a85": {
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Users",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1593/1.0.1593.2980/office365users/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365users",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Users"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "61d5704b-8e34-48a0-82d6-35d94a267a85"
+  },
+  "db4de5ce-22da-47f2-b704-60d112e4c219": {
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1610-greyhound-localization-RelayFix/1.0.1610.3091/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://alankaeon789.sharepoint.com/sites/LeaveApps": {
+        "dataSources": {
+          "Admin Table": {
+            "tableName": "6784f5fb-7143-4ef9-ab93-17bc55d418c7"
+          },
+          "Company Holidays": {
+            "tableName": "c87c95a9-1a17-47c0-a03a-b2a0d1576e9b"
+          },
+          "Leave Balance": {
+            "tableName": "f8d67ceb-810e-47f4-b5b1-97d3c652007f"
+          },
+          "LeavesAppliedByUsers": {
+            "tableName": "e163cb17-e0ac-4900-85c5-660537a66aba"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "Leave Balance",
+      "Company Holidays",
+      "LeavesAppliedByUsers",
+      "Admin Table"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "db4de5ce-22da-47f2-b704-60d112e4c219"
+  },
+  "f07139a3-a3e2-43bc-8d54-8f0c2455a003": {
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1610-greyhound-localization-RelayFix/1.0.1610.3091/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://alankaeon789.sharepoint.com/sites/LeaveApps": {
+        "dataSources": {
+          "Leave Balance_1": {
+            "tableName": "f8d67ceb-810e-47f4-b5b1-97d3c652007f"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "Leave Balance_1"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "f07139a3-a3e2-43bc-8d54-8f0c2455a003"
+  }
+}

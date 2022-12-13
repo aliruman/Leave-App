@@ -1,0 +1,240 @@
+Home As screen:
+    Fill: =RGBA(215, 226, 241, 1)
+
+    Container1 As groupContainer.manualLayoutContainer:
+        Height: =768
+        Width: =833
+        ZIndex: =1
+
+        Image1 As image:
+            Height: =768
+            Image: ='Leave Img'
+            ImagePosition: =ImagePosition.Fill
+            Width: =831
+            ZIndex: =1
+
+        Icon1 As icon.ArrowRight:
+            Icon: =Icon.ArrowRight
+            X: =296
+            Y: =212
+            ZIndex: =2
+
+    Label1 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Bold
+        Height: =60
+        Size: =40
+        Text: ="Leave"
+        Width: =212
+        X: =86
+        Y: =210
+        ZIndex: =2
+
+    Label2 As label:
+        FontWeight: =FontWeight.Bold
+        Height: =60
+        Size: =40
+        Text: ="Request"
+        Width: =255
+        X: =375
+        Y: =210
+        ZIndex: =3
+
+    Container3 As groupContainer.manualLayoutContainer:
+        Height: =219
+        X: =854
+        Y: =176
+        ZIndex: =4
+
+        Label3 As label:
+            FontWeight: =FontWeight.Semibold
+            Size: =15
+            Text: ="TO SUBMIT A LEAVE REQUEST"
+            Width: =307
+            X: =118
+            Y: =109
+            ZIndex: =1
+
+        Button1 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 121, 187, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =46
+            OnSelect: |-
+                =Set(ManagerView,false);
+                Set(VarOtppopup,true);
+                Set(VarOTP,RandBetween(00000,99999));
+                Office365Outlook.SendEmailV2(User().Email,"One time password for your login","Hi"&User().FullName&"<br> You one time password is:  "&VarOTP&"<br>");
+                Set(varid,1)
+            RadiusBottomLeft: =15
+            RadiusBottomRight: =15
+            RadiusTopLeft: =15
+            RadiusTopRight: =15
+            Text: ="Login as an employee"
+            Width: =411
+            X: =52
+            Y: =162
+            ZIndex: =2
+
+    Container4 As groupContainer.manualLayoutContainer:
+        X: =854
+        Y: =395
+        ZIndex: =5
+
+        Label4 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =62
+            Size: =15
+            Text: ="TO APPROVE OR DECLINE LEAVE REQUEST"
+            Width: =419
+            X: =40
+            Y: =27
+            ZIndex: =1
+
+        Button2 As button:
+            BorderThickness: =1
+            Color: =RGBA(0, 121, 187, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =46
+            OnSelect: |
+                =Set(VarOTP,RandBetween(00000,99999));
+                If(User().Email in LookUp('Admin Table',Title="Admin").'Admin user'.Email,Office365Outlook.SendEmailV2(User().Email,"One time password for your login","Hi"&User().FullName&"<br> You one time password is:  "&VarOTP);Set(VarOtppopup,true);Set(ManagerView,true),Set(ManagerView,false));
+                Set(varid,1)
+            Text: ="Login as a manager"
+            Width: =411
+            X: =48
+            Y: =89
+            ZIndex: =2
+
+    PopUpOtp As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =11
+
+        Rectangle9 As rectangle:
+            Fill: =RGBA(1, 1, 1, 0.8)
+            Height: =685
+            Visible: =VarOtppopup
+            Width: =1294
+            X: =32
+            Y: =40
+            ZIndex: =6
+
+        Rectangle10 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =354
+            Visible: =VarOtppopup
+            Width: =784
+            X: =286
+            Y: =190
+            ZIndex: =7
+
+        TextInput4 As text:
+            Align: =Align.Center
+            Default: =""
+            FontWeight: =FontWeight.Bold
+            Format: =TextFormat.Number
+            Height: =65
+            Size: =18
+            Visible: =VarOtppopup
+            Width: =624
+            X: =366
+            Y: =294
+            ZIndex: =8
+
+        Button15 As button:
+            BorderColor: =RGBA(50, 86, 160, 1)
+            BorderThickness: =3
+            Color: =RGBA(39, 67, 125, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            OnSelect: |-
+                =If(ManagerView=true,
+                    If(Value(TextInput4.Text)=VarOTP,Navigate('Leaves For Waiting Action'),Set(VarWrongPassword,true));
+                    ,
+                    ManagerView=false,
+                    If(Value(TextInput4.Text)=VarOTP,Navigate('My Leave Request'),Set(VarWrongPassword,true));
+                );
+                Set(VarOtppopup, false );
+                Reset(TextInput4);
+            RadiusBottomLeft: =12
+            RadiusBottomRight: =12
+            RadiusTopLeft: =12
+            RadiusTopRight: =12
+            Text: ="Click"
+            Visible: =VarOtppopup
+            X: =598
+            Y: =408
+            ZIndex: =9
+
+        Label33 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =60
+            Size: =18
+            Text: ="         Please enter otp for log into your account"
+            Visible: =VarOtppopup
+            Width: =613
+            X: =352
+            Y: =210
+            ZIndex: =10
+
+    wrongPasswordPopup As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =15
+
+        Rectangle9_1 As rectangle:
+            Fill: =RGBA(1, 1, 1, 0.8)
+            Height: =685
+            Visible: =VarWrongPassword
+            Width: =1294
+            X: =34
+            Y: =42
+            ZIndex: =11
+
+        HtmlText2 As htmlViewer:
+            Height: =354
+            HtmlText: |-
+                ="<div style='margin:5px;width:765px;height:330px;background-color:RGBA(241, 244, 249, 1);border-radius:15px;'></div>"
+            Visible: =VarWrongPassword
+            Width: =784
+            X: =286
+            Y: =190
+            ZIndex: =12
+
+        Label31 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =65
+            Size: =18
+            Text: ="Invalid password please try again"
+            Visible: =VarWrongPassword
+            Width: =624
+            X: =366
+            Y: =303
+            ZIndex: =13
+
+        Button11 As button:
+            OnSelect: =Set(VarWrongPassword,false)
+            RadiusBottomLeft: =20
+            RadiusBottomRight: =20
+            RadiusTopLeft: =20
+            RadiusTopRight: =20
+            Text: ="Ok"
+            Visible: =VarWrongPassword
+            X: =578
+            Y: =448
+            ZIndex: =14
+
+    Image7 As image:
+        Height: =115
+        Image: ='Alankaeon Logo_1'
+        Width: =274
+        X: =965
+        Y: =34
+        ZIndex: =18
+

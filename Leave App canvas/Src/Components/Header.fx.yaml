@@ -1,0 +1,69 @@
+Header As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =Max(App.Height, App.MinScreenHeight)/8
+    navGalwidth: =
+    NewRequest: =App.ActiveScreen
+    Width: =Max(App.Width, App.MinScreenWidth)
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    Container2 As groupContainer.manualLayoutContainer:
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =Header.Height
+        Width: =Header.Width
+        ZIndex: =1
+
+        Rectangle2 As rectangle:
+            Height: =Header.Height
+            Width: =Header.Width
+            ZIndex: =1
+
+        Circle1 As circle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =53
+            OnSelect: =Navigate(Header.NewRequest,ScreenTransition.None);Set(EditLeave,false)
+            Width: =52
+            X: =838
+            Y: =21
+            ZIndex: =5
+
+        Icon3 As icon.Add:
+            Height: =44
+            Icon: =Icon.Add
+            OnSelect: |
+                =Navigate(Header.NewRequest,ScreenTransition.None);Set(EditLeave,false)
+            Width: =40
+            X: =844
+            Y: =27
+            ZIndex: =6
+
+        Label7 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Size: =18
+            Text: ="Create Request"
+            Width: =195
+            X: =906
+            Y: =27
+            ZIndex: =7
+
+        Label7_1 As label:
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =41
+            Size: =18
+            Text: =User().FullName
+            Width: =209
+            X: =1118
+            Y: =26
+            ZIndex: =9
+
+    Rectangle7 As rectangle:
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =81
+        Width: =5
+        X: =1103
+        Y: =7
+        ZIndex: =2
+
